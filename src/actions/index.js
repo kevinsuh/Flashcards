@@ -1,5 +1,5 @@
-import { FETCH_DECKS } from './types';
-import { getDecks } from '../api';
+import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK } from './types';
+import { getDecks, getDeck } from '../api';
 
 export function fetchDecks(filter = "all") {
 
@@ -13,4 +13,24 @@ export function fetchDecks(filter = "all") {
 		})
 	}
 
+}
+
+export function fetchDeck(id) {
+
+	// redux-thunk
+	return (dispatch) => {
+		getDeck(id).then((data) => {
+			dispatch({
+				type: FETCH_DECK,
+				payload: data
+			})
+		})
+	}
+
+}
+
+export function clearDeck() {
+	return {
+		type: CLEAR_DECK
+	}
 }

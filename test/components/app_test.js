@@ -9,7 +9,7 @@ describe('App', () => {
 	})
 
 	it('has deck list', () => {
-		expect(component.find('.deck-list')).to.exist;
+		expect(component.find('.card-list')).to.exist;
 	})
 
 })

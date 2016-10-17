@@ -1,29 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { fetchDeck } from '../actions';
+import Card from './card';
 
 class Deck extends Component {
 
 	componentWillMount() {
-		console.log(this.props.params.id);
+		this.props.fetchDeck(this.props.params.id);
 	}
 
 	renderDeck() {
+
+		const deck = this.props.deck;
+
+		const cardsList = deck.cards.map((card) => {
+
+			return (
+				<Card card={card} key={card.id} />
+			);
+		});
+
 		return (
-			<div>DECK!</div>
+			<div className="card-list">
+				{cardsList}
+			</div>
 		);
 	}
 
 	render() {
-		const post = this.props.deck;
+
+		const deck = this.props.deck;
+		let deckTitle;
+
+		if (deck) {
+			deckTitle = `${deck.name} Deck`;
+		} else {
+			deckTitle = "Loading...";
+		}
+
 		return (
-			<div>
-				<div style={{ float: "right", margin: "10px 0" }}>
-					<Link to="/" className="btn btn-primary">
-						Back to Index
-					</Link>
-				</div>
-				{post ? this.renderDeck() : <div>Loading...</div>}
+			<div className="container" style={{ marginTop: "30px" }}>
+				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
+					Back to Index
+				</Link>
+				<h1 className="main-title">{deckTitle}</h1>
+				{deck ? this.renderDeck() : ''}
 			</div>
 		);
 	}
@@ -36,4 +58,4 @@ function mapStateToProps({ decks }) {
 	}
 }
 
-export default connect(mapStateToProps)(Deck);
+export default connect(mapStateToProps, { fetchDeck })(Deck);

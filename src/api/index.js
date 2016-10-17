@@ -21,3 +21,17 @@ export const getDecks = (filter = 'all') => {
 	});
 	return promise;
 }
+
+export const getDeck = (id) => {
+	let promise = asyncCall().then(() => {
+		const decks = database.decks;
+		for (var i = 0; i < decks.length; i++) {
+			let deck = decks[i];
+			if (deck.id == id) {
+				return deck;
+			}
+		}
+		return null;
+	});
+	return promise;
+}

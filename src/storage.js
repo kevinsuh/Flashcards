@@ -56,9 +56,9 @@ const database = {
 				},
 				{
 					id: 6,
-					DeckId: "What is the modulus operation?",
-					question: "The modulus operation finds the remainder after division of one number by another",
-					answer: "40",
+					DeckId: 2,
+					question: "What is the modulus operation?",
+					answer: "The modulus operation finds the remainder after division of one number by another",
 					status: "pristine"
 				}
 			]
