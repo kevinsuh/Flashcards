@@ -24,7 +24,7 @@ class DeckList extends Component {
 
 		return (
 			<div key={i} className="col-xs-4 col-lg-3 card-container">
-				<Link to={`/decks/${deck.id}`} className="card">
+				<Link to={`/decks/${deck.id}`} className="card click">
 					<h2 className="title">{deck.name}</h2>
 					<p>{deck.cards.length} cards total</p>
 					<p className="detail">{correctCards.length} correct</p>

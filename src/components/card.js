@@ -22,7 +22,7 @@ export default class Card extends Component {
 			>
 				<div
 					onClick={this.flipCard.bind(this)}
-					className={`card ${ this.state.question ? 'question' : 'answer'}`}
+					className={`card click ${ this.state.question ? 'question' : 'answer'}`}
 					>
 					{ this.state.question ? card.question : card.answer }
 				</div>

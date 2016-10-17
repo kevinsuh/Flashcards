@@ -3,7 +3,7 @@
 	display: table;
 }
 
-.card-list .card:hover {
+.card-list .card.click:hover {
 	cursor: pointer;
 	background-color: black;
 	color: white !important;
@@ -18,12 +18,26 @@
 	vertical-align: middle;
 	color: black;
 	padding: 10px;
+	cursor: default;
 }
 
 .card-list .card-form {
 	height: 225px;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.card-list .card-container.study {
+	height: 325px;
+}
+
+.title-detail {
+	margin: 2px;
+}
+
+.study-button-container {
+	margin-top: 10px !important;
+	text-align: center;
 }
 
 .card-list .card-form {

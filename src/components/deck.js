@@ -24,6 +24,14 @@ class Deck extends Component {
 
 		return (
 			<div className="card-list">
+				<div>
+				<Link
+					className="btn btn-success"
+					to={`/decks/${deck.id}/study`}
+				>
+					Study Mode
+				</Link>
+				</div>
 				{cardsList}
 			</div>
 		);
