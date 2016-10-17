@@ -1,4 +1,4 @@
-import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK } from './types';
+import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK } from './types';
 import { getDecks, getDeck } from '../api';
 
 export function fetchDecks(filter = "all") {
@@ -13,6 +13,12 @@ export function fetchDecks(filter = "all") {
 		})
 	}
 
+}
+
+export function createDeck(props) {
+	return {
+		type: CREATE_DECK
+	}
 }
 
 export function fetchDeck(id) {

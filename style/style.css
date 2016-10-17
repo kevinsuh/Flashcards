@@ -12,11 +12,28 @@
 .card-list .card {
 	border: 1pt solid black;
 	text-align: center;
-	height: 200px;
+	height: 225px;
 	display: table-cell;
 	vertical-align: middle;
 	color: black;
 	padding: 10px;
+}
+
+.card-list .card-form {
+	height: 225px;
+}
+
+.card-list .card-form {
+	border: 1pt solid black;
+	padding: 10px;
+}
+
+.small-btn {
+	font-size: 10px !important;
+}
+
+.has-danger .text-help {
+	color: #d9534f;
 }
 
 .card.question {

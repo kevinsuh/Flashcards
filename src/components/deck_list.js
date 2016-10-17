@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchDecks, clearDeck } from '../actions';
 import { Link } from 'react-router';
+import DeckNew from './deck_new';
 
 class DeckList extends Component {
 
@@ -22,7 +23,7 @@ class DeckList extends Component {
 		const newCards = deck.cards.filter(card => card.status === "pristine");
 
 		return (
-			<div key={deck.id} className="col-xs-3 card-container">
+			<div key={deck.id} className="col-xs-4 card-container">
 				<Link to={`/decks/${deck.id}`} className="card">
 					<h2 className="title">{deck.name}</h2>
 					<p>{deck.cards.length} cards total</p>
@@ -41,6 +42,7 @@ class DeckList extends Component {
 			<div className="card-list row">
 				<h1 className="main-title">Decks</h1>
 				{this.props.decks.map(this.displayDeck)}
+				<DeckNew decks={this.props.decks}/>
 			</div>
 		);
 
