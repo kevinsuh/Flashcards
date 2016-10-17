@@ -1,0 +1,27 @@
+.deck-container {
+	display: table;
+}
+
+.deck:hover {
+	cursor: pointer;
+	background-color: black;
+	color: white !important;
+	text-decoration: none;
+}
+
+.deck {
+	border: 1pt solid black;
+	text-align: center;
+	height: 200px;
+	display: table-cell;
+	vertical-align: middle;
+	color: black;
+}
+
+.title {
+	font-size: 20px;
+}
+
+.detail {
+	margin-bottom: 0;
+}

@@ -8,8 +8,8 @@ describe('App', () => {
 		component = renderComponent(App);
 	})
 
-	it('has hello world', () => {
-		expect(component).to.contain('hello world');
+	it('has deck list', () => {
+		expect(component.find('.deck-list')).to.exist;
 	})
 
 })
