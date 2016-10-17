@@ -74,6 +74,12 @@ export function clearDeck() {
 // study mode actions
 export function getStudyCards(deck) {
 
+	if (!deck) {
+		return {
+			type: GET_STUDY_CARDS
+		}
+	}
+
 	const cards = deck.cards;
 	let studyCards = randomizeArray(cards.slice());
 	let currentCard = studyCards.pop();

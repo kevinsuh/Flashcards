@@ -117,6 +117,8 @@ class StudyCard extends Component {
 			);
 
 		} else {
+
+			// study answers
 			
 			// total correct / incorrect
 			const totalCorrect = correct.length == 1 ? `${correct.length} question right` : `${correct.length} total questions right`;
@@ -129,36 +131,74 @@ class StudyCard extends Component {
 			// incorrect before / after
 			const incorrectFromCorrect = newlyIncorrect.correct.length == 1 ? `${newlyIncorrect.correct.length} question wrong that was right before` : `${newlyIncorrect.correct.length} questions wrong that were right before`;
 			const incorrectFromPristine = newlyIncorrect.pristine.length == 1 ? `${newlyIncorrect.pristine.length} new question wrong` : `${newlyIncorrect.pristine.length} new questions wrong`;
+
+			const correctFromIncorrectCards = newlyCorrect.incorrect.map((card, i) => {
+				return (
+					<div key={i} className="col-xs-3 card">
+						<p>{card.question}</p>
+					</div>
+				);
+			});
+
+			const correctFromPristineCards = newlyCorrect.pristine.map((card, i) => {
+				return (
+					<div key={i} className="col-xs-3 card">
+						<p>{card.question}</p>
+					</div>
+				);
+			});
+
+			const incorrectFromCorrectCards = newlyIncorrect.correct.map((card, i) => {
+				return (
+					<div key={i} className="col-xs-3 card">
+						<p>{card.question}</p>
+					</div>
+				);
+			});
+
+			const incorrectFromPristineCards = newlyIncorrect.pristine.map((card, i) => {
+				return (
+					<div key={i} className="col-xs-3 card">
+						<p>{card.question}</p>
+					</div>
+				);
+			});
 			
 			return (
 				<div>
-					Congrats!
-					<p>
-						You got {totalCorrect}.
-					</p>
-					<p>
-						You got {totalIncorrect}.
-					</p>
+					<h1>Great work!</h1>
+					<div className="row">
+						<h2 className="title">You got {totalCorrect}.</h2>
+					</div>
+					<div className="row">
+						<h2 className="title">You got {totalIncorrect}.</h2>
+					</div>
 					{/* newly correct */}
-					<p>
-						You got {correctFromIncorrect}.
-					</p>
-					<p>
-						You got {correctFromPristine}.
-					</p>
+					<div className="row">
+						<h2 className="title">You got {correctFromIncorrect}.</h2>
+						{correctFromIncorrectCards}
+					</div>
+					<div className="row">
+						<h2 className="title">You got {correctFromPristine}.</h2>
+						{ correctFromPristineCards }
+					</div>
 				{/* newly incorrect */}
-					<p>
-						You got {incorrectFromCorrect}.
-					</p>
-					<p>
-						You got {incorrectFromPristine}.
-					</p>
-					<button
-						className="btn btn-success"
-						onClick={this.confirmStudy}
-					>
-						Confirm
-					</button>
+					<div className="row">
+						<h2 className="title">You got {incorrectFromCorrect}.</h2>
+						{ incorrectFromCorrectCards }
+					</div>
+					<div className="row">
+						<h2 className="title">You got {incorrectFromPristine}.</h2>
+						{ incorrectFromPristineCards }
+					</div>
+					<div style={{marginTop:"10px", textAlign:"center"}}>
+						<button
+							className="btn btn-success"
+							onClick={this.confirmStudy}
+						>
+							Confirm
+						</button>
+					</div>
 				</div>
 			);
 		}
