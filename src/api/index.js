@@ -22,13 +22,43 @@ export const getDecks = (filter = 'all') => {
 	return promise;
 }
 
-export const getDeck = (id) => {
+function randomizeArray(array) {
+
+	let currentIndex = array.length;
+	let temp;
+	let randomIndex;
+
+	while (currentIndex !== 0) {
+
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// swap random index with current element
+		temp = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temp;
+
+	}
+
+	return array;
+
+}
+
+export const getDeck = (id, random = false) => {
 	let promise = asyncCall().then(() => {
 		const decks = database.decks;
 		for (var i = 0; i < decks.length; i++) {
 			let deck = decks[i];
 			if (deck.id == id) {
-				return deck;
+
+				if (random) {
+					// run randomize function here
+					deck.cards = randomizeArray(deck.cards);
+					return deck;
+				} else {
+					return deck;
+				}
+
 			}
 		}
 		return null;

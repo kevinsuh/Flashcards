@@ -1,4 +1,4 @@
-import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD } from './types';
+import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD, GET_STUDY_CARDS, TAKE_STUDY_CARD, REVEAL_STUDY_CARD, MARK_CORRECT, MARK_INCORRECT } from './types';
 import { getDecks, getDeck, postDeck, postCard } from '../api';
 import { browserHistory } from 'react-router';
 
@@ -65,5 +65,64 @@ export function fetchDeck(id) {
 export function clearDeck() {
 	return {
 		type: CLEAR_DECK
+	}
+}
+
+// study mode actions
+export function getStudyCards(DeckId) {
+	return (dispatch) => {
+		const random = true;
+		getDeck(DeckId, random).then((data) => {
+			if (!data) {
+				browserHistory.push(`/`);
+			} else {
+
+				// first one is current card
+				let currentCard = data.cards.pop();
+
+				dispatch({
+					type: GET_STUDY_CARDS,
+					payload: {
+						remaining: data.cards,
+						currentCard
+					}
+				});
+			}
+		})
+	}
+}
+
+export function takeStudyCard(cards) {
+
+	const card = cards[0];
+	let newRemaining = cards.slice(1);
+
+	return {
+		type: GET_STUDY_CARD,
+		payload: {
+			card,
+			newRemaining
+		}
+	};
+
+}
+
+export function revealStudyCard() {
+	return {
+		type: REVEAL_STUDY_CARD
+	}
+}
+
+export function answerCard(answeredCard, cards, isCorrect) {
+	const type = isCorrect ? MARK_CORRECT : MARK_INCORRECT;
+	const newCard = cards[0];
+	let newRemaining = cards.slice(1);
+	return {
+		type,
+		payload: {
+			answeredCard,
+			currentCard: newCard,
+			remaining: newRemaining
+		}
 	}
 }

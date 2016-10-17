@@ -4,8 +4,6 @@ export default function(state = { all: [], deck: null }, action) {
 
 	switch (action.type) {
 		case FETCH_DECKS:
-			console.log(`\n\n fetching decks?`);
-			console.log(action.payload);
 			return { ...state, all: action.payload };
 		case FETCH_DECK:
 			return { ...state, deck: action.payload };
