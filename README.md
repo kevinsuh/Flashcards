@@ -18,7 +18,7 @@ npm install
 ```
 We use [webpack](https://webpack.github.io/) with a [babel-loader](https://github.com/babel/babel-loader) to bundle and transpile our modules. We use [webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html) to host this app on our local server. It will be available at `localhost:8080`. To run webpack and this dev server:
 ```
-npm run dev
+npm run start
 ```
 
 You will see your terminal update whenever your bundle is recompiled (changes are made). While this is listening, you can go to `localhost:8080` to visit the app.
