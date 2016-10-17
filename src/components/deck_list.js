@@ -16,14 +16,14 @@ class DeckList extends Component {
 		this.props.clearDeck();
 	}
 
-	displayDeck(deck) {
+	displayDeck(deck, i) {
 
 		const correctCards = deck.cards.filter(card => card.status === "correct");
 		const incorrectCards = deck.cards.filter(card => card.status === "correct");
 		const newCards = deck.cards.filter(card => card.status === "pristine");
 
 		return (
-			<div key={deck.id} className="col-xs-4 card-container">
+			<div key={i} className="col-xs-4 col-lg-3 card-container">
 				<Link to={`/decks/${deck.id}`} className="card">
 					<h2 className="title">{deck.name}</h2>
 					<p>{deck.cards.length} cards total</p>
@@ -42,7 +42,7 @@ class DeckList extends Component {
 			<div className="card-list row">
 				<h1 className="main-title">Decks</h1>
 				{this.props.decks.map(this.displayDeck)}
-				<DeckNew decks={this.props.decks}/>
+				<DeckNew />
 			</div>
 		);
 

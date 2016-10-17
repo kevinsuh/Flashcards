@@ -1,5 +1,6 @@
 import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK } from './types';
-import { getDecks, getDeck } from '../api';
+import { getDecks, getDeck, postDeck } from '../api';
+import { browserHistory } from 'react-router';
 
 export function fetchDecks(filter = "all") {
 
@@ -16,9 +17,17 @@ export function fetchDecks(filter = "all") {
 }
 
 export function createDeck(props) {
-	return {
-		type: CREATE_DECK
+
+	return (dispatch) => {
+		postDeck(props).then((data) => {
+			dispatch({
+				type: CREATE_DECK,
+				payload: data
+			});
+			browserHistory.push("/");
+		})
 	}
+	
 }
 
 export function fetchDeck(id) {

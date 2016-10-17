@@ -35,3 +35,34 @@ export const getDeck = (id) => {
 	});
 	return promise;
 }
+
+// REST mockup of creating a deck
+export const postDeck = (props) => {
+
+	let promise = asyncCall().then(() => {
+
+		const decks = database.decks;
+		const { name } = props;
+
+		const deck = {
+			name,
+			cards: []
+		};
+
+		// unique deck id
+		let MaxDeckId = 0;
+		decks.forEach((deck) => {
+			if (deck.id > MaxDeckId) {
+				MaxDeckId = deck.id;
+			}
+		});
+		deck.id = MaxDeckId + 1;
+
+		database.decks.push(deck);
+
+		return database.decks;
+
+	});
+
+	return promise;
+}

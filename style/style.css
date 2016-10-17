@@ -1,4 +1,5 @@
 .card-list .card-container {
+	margin-top: 25px;
 	display: table;
 }
 
@@ -21,6 +22,8 @@
 
 .card-list .card-form {
 	height: 225px;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .card-list .card-form {

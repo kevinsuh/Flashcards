@@ -16,8 +16,8 @@ class DeckNew extends Component {
 
 		// check for unique name before submitting
 		if (this.nameIsUnique(name)) {
-			console.log(`\n\n VALID!`);
 			this.props.createDeck(props);
+			this.props.resetForm();
 		}
 
 	}
@@ -59,7 +59,7 @@ class DeckNew extends Component {
 		}
 
 		return (
-			<div className="card-container col-xs-4">
+			<div className="card-container col-xs-4 col-lg-3">
 				{formDisplay}
 			</div>
 		);
@@ -72,7 +72,6 @@ class DeckNew extends Component {
 		return(
 
 			<form className="card-form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-				<h2 className="title">New Deck</h2>
 
 				<div className={`form-group ${ name.touched && !name.valid ? 'has-danger' : ''}`} >
 					<label>Name</label>
@@ -104,8 +103,14 @@ const validate = (values) => {
 	return errors;
 }
 
+function mapStateToProps({ decks }) {
+	return {
+		decks: decks.all
+	}
+}
+
 export default reduxForm({
 	form: 'DeckNewForm',
 	fields: ['name'],
 	validate
-}, null, { createDeck })(DeckNew);
+}, mapStateToProps, { createDeck })(DeckNew);
