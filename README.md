@@ -38,3 +38,5 @@ To run tests, simply run:
 ```npm run test```
 To run tests on every change, run:
 ```npm run test:watch```
+
+The test will run some basic tests to see if the components have rendered as expected. It will also run a test to make sure the spacing algorithm is correct with each of the cards during study mode.

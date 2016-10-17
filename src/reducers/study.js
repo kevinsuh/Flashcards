@@ -8,9 +8,7 @@ export default function(state = initialState, action) {
 		case GET_STUDY_CARDS: {
 			
 			if (action.payload) {
-				const cards = action.payload.cards;
-				let studyCards = randomizeArray(cards.slice());
-				let currentCard = studyCards.pop();
+				const { studyCards, currentCard } = action.payload;
 				return  { ...state, remaining: studyCards, currentCard };
 			}
 			
@@ -18,9 +16,7 @@ export default function(state = initialState, action) {
 
 		}
 		case GET_STUDY_CARDS_ASYNC: {
-			const cards = action.payload.cards;
-			let studyCards = randomizeArray(cards.slice());
-			let currentCard = studyCards.pop();
+			const { studyCards, currentCard } = action.payload;
 			return  { ...state, remaining: studyCards, currentCard };
 		}
 		case TAKE_STUDY_CARD: {

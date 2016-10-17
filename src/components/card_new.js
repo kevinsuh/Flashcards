@@ -27,7 +27,7 @@ class CardNew extends Component {
 		} else {
 			formDisplay = (
 				<div
-					className="card click"
+					className="card click add-card"
 					style={{border: "2pt solid green"}}
 					onClick={this.showForm.bind(this)}
 				>

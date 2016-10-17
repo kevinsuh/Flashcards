@@ -49,7 +49,7 @@ class Deck extends Component {
 		}
 
 		return (
-			<div className="container card-list" style={{ marginTop: "30px" }}>
+			<div className="container card-list deck" style={{ marginTop: "30px" }}>
 				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
 					Back to Index
 				</Link>

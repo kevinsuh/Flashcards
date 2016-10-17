@@ -1,6 +1,7 @@
 import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD, GET_STUDY_CARDS, GET_STUDY_CARDS_ASYNC, TAKE_STUDY_CARD, REVEAL_STUDY_CARD, MARK_CORRECT, MARK_INCORRECT, UPDATE_CARD_STATUSES, RESET_STUDY } from './types';
 import { getDecks, getDeck } from '../api';
 import { browserHistory } from 'react-router';
+import { randomizeArray } from '../helpers';
 
 export function fetchDecks(filter = "all", id = null) {
 
@@ -73,9 +74,13 @@ export function clearDeck() {
 // study mode actions
 export function getStudyCards(deck) {
 
+	const cards = deck.cards;
+	let studyCards = randomizeArray(cards.slice());
+	let currentCard = studyCards.pop();
+
 	return {
 		type: GET_STUDY_CARDS,
-		payload: deck
+		payload: { studyCards, currentCard }
 	}
 
 }
@@ -139,9 +144,12 @@ export function getStudyCardsAsync(DeckId) {
 			if (!data) {
 				browserHistory.push(`/`);
 			} else {
+				const cards = data.cards;
+				let studyCards = randomizeArray(cards.slice());
+				let currentCard = studyCards.pop();
 				dispatch({
 					type: GET_STUDY_CARDS_ASYNC,
-					payload: data
+					payload: { studyCards, currentCard }
 				});
 			}
 

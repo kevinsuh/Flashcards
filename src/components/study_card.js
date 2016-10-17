@@ -74,14 +74,14 @@ class StudyCard extends Component {
 				options = (
 					<div>
 						<button
-							className="btn btn-success"
+							className="btn btn-success correct"
 							style={{marginRight: "10px"}}
 							onClick={this.markCorrect}
 						>
 							Correct
 						</button>
 						<button
-							className="btn btn-danger"
+							className="btn btn-danger incorrect"
 							onClick={this.markIncorrect}
 						>
 							Incorrect
@@ -90,7 +90,7 @@ class StudyCard extends Component {
 				);
 			} else {
 				options = (
-					<button className="btn btn-primary" onClick={this.props.revealStudyCard}>Reveal</button>
+					<button className="btn btn-primary reveal" onClick={this.props.revealStudyCard}>Reveal</button>
 				);
 			}
 
