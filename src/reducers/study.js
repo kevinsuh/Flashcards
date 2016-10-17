@@ -1,12 +1,27 @@
-import { GET_STUDY_CARDS, TAKE_STUDY_CARD, REVEAL_STUDY_CARD, MARK_CORRECT, MARK_INCORRECT } from '../actions/types';
+import { GET_STUDY_CARDS, GET_STUDY_CARDS_ASYNC, TAKE_STUDY_CARD, REVEAL_STUDY_CARD, MARK_CORRECT, MARK_INCORRECT, RESET_STUDY } from '../actions/types';
+import { randomizeArray } from '../helpers';
 
-export default function(state = { remaining: [], currentCard: {}, revealed: false, correct: [], incorrect: [] }, action) {
+const initialState = { remaining: [], currentCard: {}, revealed: false, correct: [], incorrect: [] };
+export default function(state = initialState, action) {
 
 	switch (action.type) {
 		case GET_STUDY_CARDS: {
-			console.log(action.payload);
-			let { remaining, currentCard } = action.payload;
-			return  { ...state, remaining, currentCard };
+			
+			if (action.payload) {
+				const cards = action.payload.cards;
+				let studyCards = randomizeArray(cards.slice());
+				let currentCard = studyCards.pop();
+				return  { ...state, remaining: studyCards, currentCard };
+			}
+			
+			return state;
+
+		}
+		case GET_STUDY_CARDS_ASYNC: {
+			const cards = action.payload.cards;
+			let studyCards = randomizeArray(cards.slice());
+			let currentCard = studyCards.pop();
+			return  { ...state, remaining: studyCards, currentCard };
 		}
 		case TAKE_STUDY_CARD: {
 			return {
@@ -42,8 +57,12 @@ export default function(state = { remaining: [], currentCard: {}, revealed: fals
 				remaining
 			}
 		}
+		case RESET_STUDY: {
+			return initialState;
+		}
 	}
 
 	return state;
 
 }
+

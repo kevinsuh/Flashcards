@@ -49,7 +49,7 @@ class DeckNew extends Component {
 		} else {
 			formDisplay = (
 				<div
-					className="card"
+					className="card click"
 					style={{border: "2pt solid green"}}
 					onClick={this.showForm.bind(this)}
 				>

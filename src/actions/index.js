@@ -1,8 +1,8 @@
-import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD, GET_STUDY_CARDS, TAKE_STUDY_CARD, REVEAL_STUDY_CARD, MARK_CORRECT, MARK_INCORRECT } from './types';
-import { getDecks, getDeck, postDeck, postCard } from '../api';
+import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD, GET_STUDY_CARDS, GET_STUDY_CARDS_ASYNC, TAKE_STUDY_CARD, REVEAL_STUDY_CARD, MARK_CORRECT, MARK_INCORRECT, UPDATE_CARD_STATUSES, RESET_STUDY } from './types';
+import { getDecks, getDeck } from '../api';
 import { browserHistory } from 'react-router';
 
-export function fetchDecks(filter = "all") {
+export function fetchDecks(filter = "all", id = null) {
 
 	// redux-thunk
 	return (dispatch) => {
@@ -10,7 +10,13 @@ export function fetchDecks(filter = "all") {
 			dispatch({
 				type: FETCH_DECKS,
 				payload: data
-			})
+			});
+			if (id) {
+				dispatch({
+					type: FETCH_DECK,
+					payload: id
+				});
+			}
 		})
 	}
 
@@ -18,48 +24,44 @@ export function fetchDecks(filter = "all") {
 
 export function createDeck(props) {
 
-	return (dispatch) => {
-		postDeck(props).then((data) => {
-			dispatch({
-				type: CREATE_DECK,
-				payload: data
-			});
-			browserHistory.push("/");
-		})
+	const { name } = props;
+	const deck = {
+		name,
+		cards: []
+	};
+
+	return {
+		type: CREATE_DECK,
+		payload: deck
 	}
 	
 }
 
 export function createCard(props) {
 
-	return (dispatch) => {
-		postCard(props).then((data) => {
-			dispatch({
-				type: CREATE_CARD,
-				payload: data
-			});
-			browserHistory.push(`/decks/${props.DeckId}`);
-		})
+	// card data here
+	const { question, answer, DeckId } = props;
+	const newId = Math.floor(Math.random() * 100);
+	const newCard = {
+		id: newId,
+		question,
+		answer,
+		DeckId,
+		status: "pristine"
 	}
+
+	return {
+		type: CREATE_CARD,
+		payload: newCard
+	};
 	
 }
 
 export function fetchDeck(id) {
-
-	// redux-thunk
-	return (dispatch) => {
-		getDeck(id).then((data) => {
-			if (!data) {
-				browserHistory.push(`/`);
-			} else {
-				dispatch({
-					type: FETCH_DECK,
-					payload: data
-				})
-			}
-		})
+	return {
+		type: FETCH_DECK,
+		payload: parseInt(id)
 	}
-
 }
 
 export function clearDeck() {
@@ -69,27 +71,13 @@ export function clearDeck() {
 }
 
 // study mode actions
-export function getStudyCards(DeckId) {
-	return (dispatch) => {
-		const random = true;
-		getDeck(DeckId, random).then((data) => {
-			if (!data) {
-				browserHistory.push(`/`);
-			} else {
+export function getStudyCards(deck) {
 
-				// first one is current card
-				let currentCard = data.cards.pop();
-
-				dispatch({
-					type: GET_STUDY_CARDS,
-					payload: {
-						remaining: data.cards,
-						currentCard
-					}
-				});
-			}
-		})
+	return {
+		type: GET_STUDY_CARDS,
+		payload: deck
 	}
+
 }
 
 export function takeStudyCard(cards) {
@@ -125,4 +113,39 @@ export function answerCard(answeredCard, cards, isCorrect) {
 			remaining: newRemaining
 		}
 	}
+}
+
+export function updateCardStatuses(correct, incorrect) {
+	return {
+		type: UPDATE_CARD_STATUSES,
+		payload: {
+			correct,
+			incorrect
+		}
+	}
+}
+
+export function resetStudy() {
+	return {
+		type: RESET_STUDY
+	}
+}
+
+export function getStudyCardsAsync(DeckId) {
+
+	return (dispatch) => {
+		const random = true;
+		getDeck(DeckId, random).then((data) => {
+			if (!data) {
+				browserHistory.push(`/`);
+			} else {
+				dispatch({
+					type: GET_STUDY_CARDS_ASYNC,
+					payload: data
+				});
+			}
+
+		})
+	}
+
 }

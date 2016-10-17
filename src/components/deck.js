@@ -15,10 +15,10 @@ class Deck extends Component {
 
 		const deck = this.props.deck;
 
-		const cardsList = deck.cards.map((card) => {
+		const cardsList = deck.cards.map((card, i) => {
 
 			return (
-				<Card card={card} key={card.id} />
+				<Card card={card} key={i} />
 			);
 		});
 

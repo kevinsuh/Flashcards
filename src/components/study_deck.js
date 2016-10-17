@@ -12,7 +12,7 @@ class StudyDeck extends Component {
 
 	componentWillMount() {
 		this.props.fetchDeck(this.props.params.id);
-		this.props.getStudyCards(this.props.params.id);
+		this.props.getStudyCards(this.props.deck);
 	}
 
 	render() {
@@ -32,6 +32,9 @@ class StudyDeck extends Component {
 		return (
 			<div className="container card-list" style={{ marginTop: "30px" }}>
 				<h2>{deckTitle}</h2>
+				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
+					Back to Index
+				</Link>
 				{deckBody}
 			</div>
 		);

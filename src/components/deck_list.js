@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchDecks, clearDeck } from '../actions';
+import { clearDeck } from '../actions';
 import { Link } from 'react-router';
 import DeckNew from './deck_new';
 
@@ -12,14 +12,13 @@ class DeckList extends Component {
 	}
 
 	componentWillMount() {
-		this.props.fetchDecks();
 		this.props.clearDeck();
 	}
 
 	displayDeck(deck, i) {
 
 		const correctCards = deck.cards.filter(card => card.status === "correct");
-		const incorrectCards = deck.cards.filter(card => card.status === "correct");
+		const incorrectCards = deck.cards.filter(card => card.status === "incorrect");
 		const newCards = deck.cards.filter(card => card.status === "pristine");
 
 		return (
@@ -55,4 +54,4 @@ function mapStateToProps({ decks }) {
 	}
 }
 
-export default connect(mapStateToProps, { fetchDecks, clearDeck })(DeckList);
+export default connect(mapStateToProps, { clearDeck })(DeckList);
