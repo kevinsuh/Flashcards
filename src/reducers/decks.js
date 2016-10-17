@@ -1,4 +1,4 @@
-import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK } from '../actions/types';
+import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD } from '../actions/types';
 
 export default function(state = { all: [], deck: null }, action) {
 
@@ -12,8 +12,9 @@ export default function(state = { all: [], deck: null }, action) {
 		case CLEAR_DECK:
 			return { ...state, deck: null };
 		case CREATE_DECK:
-			const newState = { ...state, all: action.payload }
-			return newState;
+			return { ...state, all: action.payload };
+		case CREATE_CARD:
+			return  { ...state, all: action.payload };
 	}
 
 	return state;

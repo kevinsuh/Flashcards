@@ -1,5 +1,5 @@
-import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK } from './types';
-import { getDecks, getDeck, postDeck } from '../api';
+import { FETCH_DECKS, FETCH_DECK, CLEAR_DECK, CREATE_DECK, CREATE_CARD } from './types';
+import { getDecks, getDeck, postDeck, postCard } from '../api';
 import { browserHistory } from 'react-router';
 
 export function fetchDecks(filter = "all") {
@@ -30,15 +30,33 @@ export function createDeck(props) {
 	
 }
 
+export function createCard(props) {
+
+	return (dispatch) => {
+		postCard(props).then((data) => {
+			dispatch({
+				type: CREATE_CARD,
+				payload: data
+			});
+			browserHistory.push(`/decks/${props.DeckId}`);
+		})
+	}
+	
+}
+
 export function fetchDeck(id) {
 
 	// redux-thunk
 	return (dispatch) => {
 		getDeck(id).then((data) => {
-			dispatch({
-				type: FETCH_DECK,
-				payload: data
-			})
+			if (!data) {
+				browserHistory.push(`/`);
+			} else {
+				dispatch({
+					type: FETCH_DECK,
+					payload: data
+				})
+			}
 		})
 	}
 
